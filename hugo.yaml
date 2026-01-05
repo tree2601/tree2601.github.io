@@ -73,8 +73,8 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "🌲 Hello! \U0001F44B"
-    Content: Welcome to 树的建设中的博客
+    Title: "🌲 你好！Hello！¡Hola！Bonjour！Ciao！안녕하세요！こんにちは！Olá！Здравствуйте！สวัสดี！！ \U0001F44B"
+    Content: Welcome to 🌲's Blog，您可以使用 https://markdown.lovejade.cn/ 来将飞书文档转为markdown文档。
 
   socialIcons:
     - name: x
