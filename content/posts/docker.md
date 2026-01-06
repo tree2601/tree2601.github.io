@@ -7,7 +7,7 @@ title: 'Docker 部署流程'
 
 ### 内容
 
-在Ubuntu 22.04 上安装 docker，修改docker镜像存放位置至数据盘，配置使用国内镜像源，以及配置英伟达驱动使用方法。
+在国内的网络环境下，在Ubuntu 22.04服务器上安装 docker，修改docker镜像存放位置至数据盘，配置使用国内镜像源，以及配置英伟达驱动使用方法。
 
 1. ### 安装必要工具
 
@@ -88,7 +88,7 @@ docker rm -f <container-1>
 
 ```Plain
 #docker 镜像 迁移存储路径
-sudo rsync -aP /var/lib/docker/ /mnt/data0/docker
+sudo rsync -aP /var/lib/docker/ /your/new/path
 
 #修改docker配置
 打开 /etc/docker/daemon.json 
