@@ -47,7 +47,7 @@ params:
     favicon: "<link / abs url>"
     favicon16x16: "<link / abs url>"
     favicon32x32: "<link / abs url>"
-    apple_touch_icon: "<link / abs url>"
+    # apple_touch_icon: "<link / abs url>"
     safari_pinned_tab: "<link / abs url>"
 
   label:
@@ -124,19 +124,19 @@ menu:
       url: /about/
       weight: 1
       
-    - identifier: posts
-      name: Posts
-      url: /posts/
+    - identifier: common
+      name: Common
+      url: /common/
       weight: 5
 
-    - identifier: categories
-      name: Categories
-      url: /categories/
+    - identifier: ai
+      name: AI
+      url: /ai/
       weight: 10
 
-    - identifier: tags
-      name: Tags
-      url: /tags/
+    - identifier: life
+      name: Life
+      url: /life/
       weight: 15
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
