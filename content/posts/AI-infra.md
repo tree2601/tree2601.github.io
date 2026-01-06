@@ -1,7 +1,7 @@
 ---
 date: '2026-01-05T16:56:40+08:00'
 draft: false
-title: 'AI 基础设施'
+title: 'AI Infra'
 ---
 
-使用Dify构建智能体
+使用L20一体机构建智能体

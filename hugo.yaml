@@ -1,5 +1,5 @@
 baseURL: 'https://tree2601.github.io/'
-title: 🌲树的道理🌲
+title: 🌲Treetopia🌲
 theme: PaperMod
 
 
@@ -73,14 +73,19 @@ params:
 
   # home-info mode
   homeInfoParams:
-    Title: "🌲 你好！Hello！¡Hola！Bonjour！Ciao！안녕하세요！こんにちは！Olá！Здравствуйте！สวัสดี！！ \U0001F44B"
-    Content: Welcome to 🌲's Blog，您可以使用 https://markdown.lovejade.cn/ 来将飞书文档转为markdown文档。
+    Title: "🌲Treetopia 技术博客"
+    Content: |
+      你好！Hello! Bonjour！Ciao!
+
+      欢迎误入Treetopia。这里旨在分享一些技术文档(踩坑记录)。
+
+      您可以使用 https://markdown.lovejade.cn/ 来将飞书文档转为markdown文档。
 
   socialIcons:
-    - name: x
-      url: "https://x.com/"
-    - name: stackoverflow
-      url: "https://stackoverflow.com"
+    #- name: x
+    #  url: "https://x.com/"
+    #- name: stackoverflow
+    #  url: "https://stackoverflow.com"
     - name: github
       url: "https://github.com/tree2601"
 
@@ -115,18 +120,26 @@ params:
     keys: ["title", "permalink", "summary", "content"]
 menu:
   main:
+    - identifier: About
+      name: About
+      url: /about/
+      weight: 1
+      
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 5
+
     - identifier: categories
-      name: categories
+      name: Categories
       url: /categories/
       weight: 10
+
     - identifier: tags
-      name: tags
+      name: Tags
       url: /tags/
-      weight: 20
-    - identifier: example
-      name: example.org
-      url: https://example.org
-      weight: 30
+      weight: 15
+
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
@@ -137,3 +150,9 @@ markup:
     # guessSyntax: true
     # lineNos: true
     # style: monokai
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
