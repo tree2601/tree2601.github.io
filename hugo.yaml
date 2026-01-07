@@ -74,11 +74,13 @@ params:
   homeInfoParams:
     Title: "🌲Treetopia 技术博客"
     Content: |
-      你好！Hello! Bonjour！Ciao!
+      你好！Hello! Bonjour！Ciao! こんにちは!
 
       欢迎误入Treetopia。这里旨在分享一些技术文档(踩坑记录)。
 
       您可以使用 https://markdown.lovejade.cn/ 来将飞书文档转为markdown文档。
+
+      common是通用技术文档，ai是AI相关文档。about是个人简介。
 
   socialIcons:
     #- name: x
@@ -122,22 +124,22 @@ menu:
     - identifier: About
       name: About
       url: /about/
-      weight: 1
-      
-    - identifier: common
-      name: Common
-      url: /common/
-      weight: 5
+      weight: 10
 
     - identifier: ai
       name: AI
       url: /ai/
-      weight: 10
+      weight: 20
+      
+    - identifier: common
+      name: Common
+      url: /common/
+      weight: 30
 
     - identifier: life
       name: Life
       url: /life/
-      weight: 15
+      weight: 40
 
 # Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true

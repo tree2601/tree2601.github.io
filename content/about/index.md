@@ -7,6 +7,8 @@ weight: 1
 
 
 我是谁？我是木。
+
+A Bruin and a Trojan.
 ![Bruin](/images/ucla-logo.png)
 
 这是一个链接 [Markdown语法](https://markdown.com.cn)
