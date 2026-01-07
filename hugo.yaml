@@ -1,29 +1,78 @@
 baseURL: 'https://tree2601.github.io/'
-title: 🌲Treetopia🌲
 theme: PaperMod
 
-
+# 默认语言设置
 languageCode: zh
 defaultContentLanguage: zh
+defaultContentLanguageInSubdir: true # 开启后，中文路径为 /zh/，英文为 /en/
+preserveTaxonomyNames: true 
 enableRobotsTXT: true
 buildDrafts: false
 buildFuture: false
 buildExpired: false
 
-minify:
-  disableXML: true
-  minifyOutput: true
+# ----------------- 多语言配置 -----------------
+languages:
+  zh:
+    languageName: "中文"
+    contentDir: content/Chinese
+    weight: 1
+    permalinks:
+      posts: /posts/:year/:filename/
+    title: 🌲Treetopia🌲
+    params:
+      displayFullLangName: true
+      homeInfoParams:
+        Title: "🌲Treetopia 技术博客"
+        Content: |
+          你好！欢迎误入Treetopia。这里旨在分享一些技术文档(踩坑记录)。
+          
+          您可以使用 [Markdown Lovejade](https://markdown.lovejade.cn/) 来将飞书文档转为markdown。
+          
+      
+    menu:
+      main:
+        - identifier: About
+          name: 关于
+          url: /about/
+          weight: 10
+        - identifier: categories
+          name: 类别
+          url: /categories/
+          weight: 50
 
+  en:
+    languageName: "English"
+    contentDir: content/English
+    weight: 2
+    permalinks:
+      posts: /posts/:year/:filename/
+    title: 🌲Treetopia🌲
+    params:
+      displayFullLangName: true
+      homeInfoParams:
+        Title: "🌲Treetopia Tech Blog"
+        Content: |
+          Welcome to Treetopia! This is a place where I share technical notes and troubleshooting guides.
+          
+          Common for general tech, AI for artificial intelligence, and About for me.
+    menu:
+      main:
+        - identifier: About
+          name: About
+          url: /about/
+          weight: 10
+        - identifier: categories
+          name: Categories
+          url: /categories/
+          weight: 50
+
+# ----------------- 全局参数 (通用) -----------------
 params:
-  env: production # to enable google analytics, opengraph, twitter-cards and schema.
-  title: ExampleSite
-  description: "ExampleSite description"
-  keywords: [Blog, Portfolio, PaperMod]
+  env: production
   author: Me
-  # author: ["Me", "You"] # multiple authors
-  images: ["<link or path of image for opengraph, twitter-cards>"]
   DateFormat: "2006-01-02"
-  defaultTheme: auto # dark, light
+  defaultTheme: auto
   disableThemeToggle: false
   ShowReadingTime: true
   ShowShareButtons: true
@@ -31,85 +80,19 @@ params:
   ShowBreadCrumbs: true
   ShowCodeCopyButtons: true
   ShowWordCount: true
-  ShowRssButtonInSectionTermList: true
   UseHugoToc: true
-  disableSpecial1stPost: false
-  disableScrollToTop: false
-  comments: false
-  hidemeta: false
-  hideSummary: false
   ShowToc: true
-
-
-  assets:
-    # disableHLJS: true # to disable highlight.js
-    # disableFingerprinting: true
-    favicon: "<link / abs url>"
-    favicon16x16: "<link / abs url>"
-    favicon32x32: "<link / abs url>"
-    # apple_touch_icon: "<link / abs url>"
-    safari_pinned_tab: "<link / abs url>"
-
-  label:
-    text: "Home"
-    icon: /apple-touch-icon.png
-    iconHeight: 35
-
-  # profile-mode
-  profileMode:
-    enabled: false # needs to be explicitly set
-    title: ExampleSite
-    subtitle: "This is subtitle"
-    imageUrl: "<img location>"
-    imageWidth: 120
-    imageHeight: 120
-    imageTitle: my image
-    buttons:
-      - name: Posts
-        url: posts
-      - name: Tags
-        url: tags
-
-  # home-info mode
-  homeInfoParams:
-    Title: "🌲Treetopia 技术博客"
-    Content: |
-      你好！Hello! Bonjour！Ciao! こんにちは!
-
-      欢迎误入Treetopia。这里旨在分享一些技术文档(踩坑记录)。
-
-      您可以使用 https://markdown.lovejade.cn/ 来将飞书文档转为markdown文档。
-
-      common是通用技术文档，ai是AI相关文档。about是个人简介。
-
+  
+  # 社交图标是全局通用的
   socialIcons:
-    #- name: x
-    #  url: "https://x.com/"
-    #- name: stackoverflow
-    #  url: "https://stackoverflow.com"
     - name: github
       url: "https://github.com/tree2601"
 
-  analytics:
-    google:
-      SiteVerificationTag: "XYZabc"
-    bing:
-      SiteVerificationTag: "XYZabc"
-    yandex:
-      SiteVerificationTag: "XYZabc"
-
-  cover:
-    hidden: true # hide everywhere but not in structured data
-    hiddenInList: true # hide on list pages and home
-    hiddenInSingle: true # hide on single page
-
   editPost:
-    URL: "https://github.com/<path_to_repo>/content"
-    Text: "Suggest Changes" # edit text
-    appendFilePath: true # to append file path to Edit link
+    URL: "https://github.com/tree2601/<repo_name>/content"
+    Text: "Suggest Changes"
+    appendFilePath: true
 
-  # for search
-  # https://fusejs.io/api/options.html
   fuseOpts:
     isCaseSensitive: false
     shouldSort: true
@@ -117,43 +100,21 @@ params:
     distance: 1000
     threshold: 0.4
     minMatchCharLength: 0
-    limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+    limit: 10
     keys: ["title", "permalink", "summary", "content"]
-menu:
-  main:
-    - identifier: About
-      name: About
-      url: /about/
-      weight: 10
 
-    - identifier: ai
-      name: AI
-      url: /ai/
-      weight: 20
-      
-    - identifier: common
-      name: Common
-      url: /common/
-      weight: 30
+# ----------------- 其他全局设置 -----------------
+minify:
+  disableXML: true
+  minifyOutput: true
 
-    - identifier: life
-      name: Life
-      url: /life/
-      weight: 40
-
-# Read: https://github.com/adityatelange/hugo-PaperMod/wiki/FAQs#using-hugos-syntax-highlighter-chroma
 pygmentsUseClasses: true
 markup:
   highlight:
     noClasses: false
-    # anchorLineNos: true
-    # codeFences: true
-    # guessSyntax: true
-    # lineNos: true
-    # style: monokai
 
 outputs:
   home:
     - HTML
     - RSS
-    - JSON # necessary for search
+    - JSON
