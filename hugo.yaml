@@ -42,7 +42,7 @@ languages:
           weight: 50
         - identifier: Search
           name: 搜索
-          url: search
+          url: /search/
           weight: 60
 
   en:
@@ -72,7 +72,7 @@ languages:
           weight: 50
         - identifier: Search
           name: Search
-          url: search
+          url: /search/
           weight: 60
 
 # ----------------- 全局参数 (通用) -----------------
