@@ -5,9 +5,9 @@ title: '关于我'
 ---
 
 
-我是谁？我是木。
+我是谁呢？
 
 A Bruin and a Trojan.
-![Bruin](/images/ucla-logo.png)
+![Bruin-and-Trojan](/images/bruin-and-trojan.png)
 
-这是一个链接 [Markdown语法](https://markdown.com.cn)
+这是一个链接 [Bilibili](https://www.bilibili.com/)

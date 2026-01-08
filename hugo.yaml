@@ -40,6 +40,10 @@ languages:
           name: 类别
           url: /categories/
           weight: 50
+        - identifier: Search
+          name: 搜索
+          url: search
+          weight: 60
 
   en:
     languageName: "English"
@@ -66,6 +70,10 @@ languages:
           name: Categories
           url: /categories/
           weight: 50
+        - identifier: Search
+          name: Search
+          url: search
+          weight: 60
 
 # ----------------- 全局参数 (通用) -----------------
 params:
