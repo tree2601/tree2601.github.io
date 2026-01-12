@@ -7,4 +7,4 @@ tags: ["AI", "LLM", "VLM", "RAG", "ASR", "Dify", "Mineru"]
 keywords: ["AI", "LLM", "VLM", "RAG", "ASR", "Dify", "Mineru"]
 ---
 
-使用L20一体机构建智能体
+使用L20一体机构建智能体(建设中)
