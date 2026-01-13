@@ -59,7 +59,7 @@ languages:
         Content: |
           Welcome to Treetopia! This is a place where I share technical notes and troubleshooting guides.
           
-          Common for general tech, AI for artificial intelligence, and About for me.
+          Common for general tech, AI for artificial intelligence.
     menu:
       main:
         - identifier: About
