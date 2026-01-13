@@ -3,196 +3,189 @@ date: '2026-01-07T09:18:13+08:00'
 draft: false
 title: 'Docker 使用流程'
 categories: ["通用"]
+tags: ["Docker","DevOps","Ubuntu"]
 ---
+### 内容
 
-### 内容：
+在Ubuntu 22.04 上安装 docker，修改docker镜像存放位置至数据盘，配置使用国内镜像源，以及配置英伟达驱动使用方法。
 
-DeepSeek-671B 大模型部署于两台配备 8卡 L20 GPU 的服务器。技术栈采用 Docker 容器化技术, VLLM高性能推理引擎和 Ray 分布式计算框架。
-
-官方文档:https://docs.vllm.ai/en/v0.8.1/serving/distributed\_serving.html
-
-本文基于官方文档将步骤精简化，记录了部署流程。
-
-1. ### 前置条件：
-   
-   1. 两台服务器上安装：Docker，Nvidia驱动，Nvidia container toolkit.
-   2. 确认两台服务器网络硬件配置(可与硬件厂商确认)。可使用 ifconfig 和 ping 来确认网络连接。
-   3. 下载 DeepSeek-671B模型+ VLLM的docker镜像至两台服务器上。本示例使用DeepSeek-V3。
-2. ### 确认服务器的网络配置并在下方docker compose 文件里调整环境变量：
+1. ### 安装必要工具
 
 ```Plain
-#IB网络确认: ​
-ibv_devinfo  
-显示No IB devices found 指无IB网络设备, 
-显示Link layer: Ethernet则网卡是RoCE而非IB, 
-显示Link layer: InfiniBand则是IB网络
-
-#如果因为服务器无IB设备或者IB设备不一致而需要禁用IB网络：
-NCCL_IB_DISABLE=1 --禁用IB
-NCCL_IBEXT_DISABLE=1 --禁用RoCE
-
-#如果有ib网络则可配置如下，自行调整网卡名称：
-- NCCL_SOCKET_IFNAME=bond0
-- GLOO_SOCKET_IFNAME=bond0
-- NCCL_IB_HCA=mlx5_0,mlx5_3
-- NCCL_IB_TIMEOUT=22
-- NCCL_IB_DISABLE=0  
-- NCCL_DEBUG=INFO
-
-#如果无ib网络则可配置如下，自行调整网卡名称：
-- GLOO_SOCKET_IFNAME=bond0
-- NCCL_SOCKET_IFNAME=bond0
-- NCCL_IB_DISABLE=1
-- NCCL_IBEXT_DISABLE=1 
-- NCCL_DEBUG=INFO
+sudo apt update && sudo apt install -y ca-certificates curl gnupg lsb-release
 ```
 
-3. ### Ray框架需要确认头节点(head node)和子节点(worker node)。两台服务器上分别准备docker compose 文件：
+2. ### 添加阿里源 Docker 镜像仓库证书证书
 
 ```Plain
-#定义变量：
-
-# 头节点：
-VLLM_HOST_IP  --本机ip
-RAY_PORT      --本机ray端口号，和模型服务使用端口号有所区分
-VOLUME_DS_RAY --本机RAY日志存储位置(可选)
-VOLUME_DS_V3_MODEL_PATH  --本机模型路径
-
-# 子节点： ​
-VLLM_HOST_IP --本机ip
-RAY_HEAD_IP --头节点的ip，与上面的VLLM_HOST_IP保持一致
-RAY_PORT  --头节点使用的IP，与上面的RAY_PORT保持一致
-VOLUME_DS_RAY --本机RAY日志存储位置(可选)
-VOLUME_DS_V3_MODEL_PATH  --本机模型路径
-
-#头节点部分
-  node-head-ds-v3:
-    image: vllm/vllm-openai:v0.11.0
-    container_name: node-head-ds-v3
-    entrypoint: ["/bin/bash", "-c", "ray start --block --head --node-ip-address=${VLLM_HOST_IP} --port=${RAY_PORT}"]
-    network_mode: host
-    privileged: true
-    shm_size: 64g
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: [gpu]
-              device_ids: ['0', '1', '2', '3', '4', '5', '6', '7']
-    volumes:
-      - ${VOLUME_DS_V3_PATH}:/ds-v3
-      - ${VOLUME_DS_V3_PATH}/ray:/tmp/ray
-      - ${VOLUME_DS_V3_MODEL_PATH}:/models
-    environment:
-      - NCCL_IB_HCA=mlx5_0,mlx5_3
-      - NCCL_SOCKET_IFNAME=bond0
-      - GLOO_SOCKET_IFNAME=bond0
-      - NCCL_DEBUG=INFO
-      - VLLM_HOST_IP=${VLLM_HOST_IP}  
-      - NCCL_IB_TIMEOUT=22
-      - NCCL_IB_DISABLE=0  
-      
-      
-#子节点部分
-  node-worker-ds-v3:
-    image: vllm/vllm-openai:v0.11.0
-    container_name: node-worker-ds-v3
-    entrypoint: ["/bin/bash", "-c", "ray start --block --address=${RAY_HEAD_IP}:${RAY_PORT}"]
-    network_mode: host
-    privileged: true
-    shm_size: 64g
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              capabilities: [gpu]
-              device_ids: ['0', '1', '2', '3', '4', '5', '6', '7']
-    volumes:
-      - ${VOLUME_DS_V3_PATH}:/ds-v3
-      - ${VOLUME_DS_RAY}/ray:/ds-v3/tmp/ray
-      - ${VOLUME_DS_V3_MODEL_PATH}:/models
-    environment:
-      - GLOO_SOCKET_IFNAME=bond0
-      - NCCL_SOCKET_IFNAME=bond0
-      - VLLM_HOST_IP=${VLLM_HOST_IP}
-      - NCCL_IB_HCA=mlx5_0,mlx5_3
-      - NCCL_IB_TIMEOUT=22
-      - NCCL_IB_DISABLE=0
+curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/aliyun-docker.gpg
 ```
 
-4. ### 两个节点分别启动容器，然后进入头节点容器，确认ray框架搭建成功，即可启动服务
+3. ### 添加仓库
+
+```Bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/aliyun-docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+4. ### 安装docker
 
 ```Plain
---头节点
-docker compose up -d node-head-ds-v3
+sudo apt update
+sudo apt install -y docker-ce
 
---子节点
-docker compose up -d node-worker-ds-v3
 
---进入头节点：
-sudo docker exec -it node-head-ds-v3 bash
-
---查看ray节点连接情况:
-ray status
-
---RAY框架需要头节点和子节点互通，本次实践中在子节点使用以下命令打开防火墙限制(可选): ​
-sudo ufw allow from $VLLM_POST_IP
-
-出现两个 Active Node即连接成功
+# Ubuntu系统安装完以后自动启动，WSL可能需要额外一行命令：
+sudo service docker start
 ```
 
-![ray-nodes](/images/deepseek-671b/ray-nodes.png)
-
-```C++
---启动vllm服务(可自行调整参数):
-vllm serve /models  --host 0.0.0.0 --port 20000 --trust-remote-code --served-model-name deepseek-671b-v3 --gpu-memory-utilization 0.8 --max-model-len 65536 --tensor-parallel-size 8 --pipeline-parallel-size 2 --enable-chunked-prefill --max_num_batched_tokens 2048 
-
---如果打印日志中出现以下内容，则说明服务使用ib网络。
-```
-
-![nccl-ib](/images/deepseek-671b/nccl-ib.png)
-
-```C++
---验证是否启动成功并查看吞吐量:
-curl http://10.128.7.1:20000/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "deepseek-671b-v3",
-    "messages": [
-      {"role": "system", "content": "你是一个严谨的技术助手"},
-      {"role": "user", "content": "详细的解释什么是达梦，并给出安装步骤"}
-    ],
-    "temperature": 0.7,
-    "max_tokens": 2048
-  }'
-```
-
-![throughput](/images/deepseek-671b/throughput.png)
+5. ### 验证docker启动
 
 ```Plain
---查看GPU占用情况:
+sudo docker info
+```
+
+6. ### 当前用户加入docker用户组
+
+```Plain
+#如果没有docker group
+sudo groupadd docker
+
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+7. ### 运维相关
+
+```Plain
+#查看所有的container示例
+docker ps -a 
+
+#查看所有的镜像
+docker images
+
+#查看docker运行日志，在启动失败时可用于排查问题
+dockerd 
+
+#用于修改docker镜像的名称,请自行修改<image-name-1>,<tag-1>,<image-name-2>, <tag-2>的内容
+docker tag <image-name-1>:<tag-1> <image-name-2>:<tag-2> 
+
+#移除docker镜像名 / 移除docker镜像
+docker rmi A1:tag1 
+
+#查看一个容器的日志,使用ctrl+C 退出
+docker logs -f <container-1>
+
+#查看一个容器的信息
+docker inspect <container-1>
+
+#删除一个容器
+docker rm -f <container-1>
+```
+
+8. ### 镜像储存位置修改
+
+```Plain
+#docker 镜像 迁移存储路径
+sudo rsync -aP /var/lib/docker/ /mnt/data0/docker
+
+#修改docker配置
+打开 /etc/docker/daemon.json 
+
+#加入新位置,,维持daemon.json的语法
+{
+["data-root":"/your/new/path"]
+}
+
+
+#重启docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+# 确认docker文件位置
+docker info | grep "Docker Root Dir"
+```
+
+9. ### 换国内源
+
+```Plain
+打开 /etc/docker/daemon.json
+
+加入源地址,维持daemon.json的语法
+  {
+  "registry-mirrors": [
+    "https://docker.m.daocloud.io",
+    "https://dockerproxy.com",
+    "https://docker.hlmirror.com",
+    "your-other-source.com"
+  ]
+  }
+
+# 加载并重启docker
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+
+#确认换源成功
+docker info
+--------------------------------------------------
+
+#或者可以一次性使用源：
+docker pull docker.1ms.run/<image>:<tag>
+```
+
+10. ### 打包至离线环境
+
+```Plain
+#打包镜像 
+docker save -o my-docker-image.tar my-docker-image:tag
+
+#上传至目标服务器并加载
+docker load -i my-docker-image.tar
+```
+
+11. ### 配置Nvidia-Container-Toolkit
+
+```Plain
+# 确认 Nvidia 驱动已经安装：
 nvidia-smi
 ```
 
-![nvidia-smi](/images/deepseek-671b/nvidia-smi.png)
+在线下载方法
+
+```Markdown
+# 导入 GPG 密钥
+curl -fsSL https://mirrors.ustc.edu.cn/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg
+
+# 添加中科大镜像源列表
+curl -s -L https://mirrors.ustc.edu.cn/libnvidia-container/stable/deb/nvidia-container-toolkit.list | \sudo tee /etc/apt/sources.list.d/nvidia-container-toolkit.list
+
+# 直接安装
+sudo apt update
+sudo apt install -y nvidia-container-toolkit
+```
+
+离线下载方法
 
 ```Plain
---性能测试方法(需要安装llmperf):
+# 去在线环境下载以下包，并上传至目标服务器依次安装
 
-export OPENAI_API_BASE="https://{your-ip}:{your-port}/v1"
+1. nvidia-container-toolkit-base.deb 
+2. libnvidia-container1.deb 
+3. libnvidia-container-tools.deb 
+4. nvidia-container-toolkit.deb
+```
 
-python token_benchmark_ray.py \
---model "deepseek-671b-v3" \
---mean-input-tokens 550 \
---stddev-input-tokens 150 \
---mean-output-tokens 150 \
---stddev-output-tokens 10 \
---max-num-completed-requests 10 \
---timeout 600 \
---num-concurrent-requests 1 \
---results-dir "result_outputs" \
---llm-api openai \
---additional-sampling-params '{}'
+配置docker
+
+```Plain
+# 配置Docker守护进程
+sudo nvidia-ctk runtime configure --runtime=docker
+
+# 重启docker
+sudo systemctl restart docker
+
+# 切换gpu到持久模式使得nvidia-smi没有延迟
+sudo nvidia-smi -pm 1
 ```
