@@ -22,7 +22,7 @@ a. 两台服务器上安装：[Docker](/posts/docker.md/)，Nvidia驱动，Nvidi
 
 b. 确认两台服务器网络硬件配置(可与硬件厂商确认)。可使用 ifconfig 和 ping 来确认网络连接。
 
-c. 下载 DeepSeek-671B模型+ VLLM的docker镜像至两台服务器上。本示例使用DeepSeek-V3。
+c. 下载 DeepSeek-671B模型+ VLLM的docker镜像至两台服务器上。本示例使用DeepSeek-V3(int4 版本)。
 
 3. ### 确认服务器的网络配置并在下方docker compose 文件里调整环境变量：
 
