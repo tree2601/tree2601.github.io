@@ -56,7 +56,7 @@ and add the dataset, for example:
 
 # If using deepspeed for multi-GPU training, specify the number of GPUs via CUDA_VISIBLE_DEVICES.
 
-CUDA_VISIBLE_DEVICES=0,1 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/qwen3_30b_lora_sft.yaml
+CUDA_VISIBLE_DEVICES=0,1 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_lora/qwen3_30b_lora_sft.yaml
 
 # After training, the parameters can be found in the path specified by `output_dir` in the yaml file.
 ```

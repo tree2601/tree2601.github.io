@@ -56,7 +56,7 @@ cd ./data
 
 # 如果使用deepspeed 来执行多卡训练，通过 CUDA_VISIBLE_DEVICES 来指定用多少张gpu
 
-CUDA_VISIBLE_DEVICES=0,1 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_full/qwen3_30b_lora_sft.yaml
+CUDA_VISIBLE_DEVICES=0,1 FORCE_TORCHRUN=1 llamafactory-cli train examples/train_lora/qwen3_30b_lora_sft.yaml
 
 #训练完以后的参数可以在 yaml 文件里的 output_dir 路径找到
 ```
