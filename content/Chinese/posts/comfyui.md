@@ -1,6 +1,6 @@
 ---
 date: '2026-01-14T11:11:51+08:00'
-draft: true
+draft: false
 title: 'Comfyui 使用流程'
 categories: ["人工智能"]
 tags: ["Comfyui","Multimodal","Python","Workflow"]
