@@ -12,6 +12,8 @@ tags: ["Comfyui","Multimodal","Python","Workflow","Z-image-turbo"]
 
 Z-Image-Turbo的优点：1. 较强的中文提示词跟随能力和汉字生成能力 2. 仅需8步推理即可生图，且参数量仅6B，配合量化可以在家用主机上运行(16G显存)。
 
+竞争对手: Flux-2系列
+
 考虑到某些地区无法使用ComfyUI-manager自动下载的网络限制，文件下载均以手动的方式。
 
 ### 前置准备工作
