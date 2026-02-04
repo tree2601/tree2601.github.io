@@ -14,7 +14,7 @@ tags: ["Comfyui","Multimodal","Python","Workflow","Flux"]
 
 ### 安装
 
-1. 首先确认服务器上已经有[conda](/posts/conda.md/))环境并创造一个环境。
+1. 首先确认服务器上已经有[conda](/posts/conda.md/)环境并创造一个环境。
 
 ```Plain
 # 下载comfyui 的git仓库
@@ -39,7 +39,7 @@ cd custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git
 
 # 如果网络环境有限制
-手动下载[仓库](https://github.com/Comfy-Org/ComfyUI-Manager),  解压并重命名为ComfyUI-Manager，放入custom_nodes
+手动下载[仓库](https://github.com/Comfy-Org/ComfyUI-Manager),  解压并重命名为comfyui-manager，放入custom_nodes
 
 #  重新启动comfyui即可
 python main.py --listen --port 10020 --cuda-device 0 ​
