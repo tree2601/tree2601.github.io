@@ -30,28 +30,28 @@ Configure [ComfyUI](/posts/comfyui.md/). You will need to install ControlNet com
 
 1. **Z-image-turbo Triad**: The download link includes both full-precision and quantized versions. During execution, you can select the quantized versions for `diffusion_models` and `text_encoders` to minimize VRAM usage. Place them into the ComfyUI directory as shown in the image: [**Download Link**](https://www.modelscope.cn/models/Comfy-Org/z\_image\_turbo/summary)
 
-![dir-1](/images/z-image-turbo/dir-1.png)
+![directory-1](/images/z-image-turbo/directory-1.png)
 
 
 2. **ControlNet Base Model**: [** Download Link**](https://modelscope.cn/models/PAI/Z-Image-Turbo-Fun-Controlnet-Union-2.1/summary)
 
-![dir-2](/images/z-image-turbo/dir-2.png)
+![directory-2](/images/z-image-turbo/directory-2.png)
 
 
 3. **ControlNet Human Pose Control Model**: Requires `body_pose_model.pth`, `hand_pose_model.pth`, and `facenet.pth`: [**Download Link**](https://modelscope.cn/models/soulteary/ControlNet/files)
 
-![dir-3](/images/z-image-turbo/dir-3.png)
+![directory-3](/images/z-image-turbo/directory-3.png)
 
 
 
 4. **ControlNet Depth Control Model**: [**Download Link**](https://www.modelscope.cn/models/depth-anything/Depth-Anything-V2-Large/files)
 
-![dir-4](/images/z-image-turbo/dir-4.png)
+![directory-4](/images/z-image-turbo/directory-4.png)
 
 
 5. **Qwen3-VL Model + Wheel files for required plugins**: [**Download Link**](https://modelscope.cn/models/Qwen/Qwen3-VL-4B-Instruct-GGUF) and [**Wheel Download**](https://github.com/JamePeng/llama-cpp-python) ***Please verify your system version and Python version before downloading.***
 
-![dir-5](/images/z-image-turbo/dir-5.png)
+![directory-5](/images/z-image-turbo/directory-5.png)
 
 
 

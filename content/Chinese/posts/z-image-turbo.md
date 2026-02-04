@@ -30,28 +30,28 @@ Z-Image-Turbo的优点：1. 较强的中文提示词跟随能力和汉字生成�
 
 1. Z-image-turbo三件套，下载链接里包含满血版和量化版，运行的时候diffusion\_models和text\_encoders可以选择量化版以节省显存开销。下载后以图中的方式放入comfyui的目录中: [**模型下载链接**](https://www.modelscope.cn/models/Comfy-Org/z\_image\_turbo/summary)
 
-![dir-1](/images/z-image-turbo/dir-1.png)
+![directory-1](/images/z-image-turbo/directory-1.png)
 
 
 2. ControlNet基础模型: [**模型下载链接**](https://modelscope.cn/models/PAI/Z-Image-Turbo-Fun-Controlnet-Union-2.1/summary)
 
-![dir-2](/images/z-image-turbo/dir-2.png)
+![directory-2](/images/z-image-turbo/directory-2.png)
 
 
 3. ControlNet 人物动作控制模型，需要body\_pose\_model.pth,hand\_pose\_model.pth和facenet.pth:  [**模型下载链接**](https://modelscope.cn/models/soulteary/ControlNet/files)
 
-![dir-3](/images/z-image-turbo/dir-3.png)
+![directory-3](/images/z-image-turbo/directory-3.png)
 
 
 
 4. ControlNet 深度控制模型: [**模型下载链接**](https://www.modelscope.cn/models/depth-anything/Depth-Anything-V2-Large/files)
 
-![dir-4](/images/z-image-turbo/dir-4.png)
+![directory-4](/images/z-image-turbo/directory-4.png)
 
 
 5. Qwen3-VL 模型 + 相关插件所需wheel文件: [**模型下载链接**](https://modelscope.cn/models/Qwen/Qwen3-VL-4B-Instruct-GGUF) 以及 [**wheel下载**](https://github.com/JamePeng/llama-cpp-python) ***下载前请核对系统版本和python版本***
 
-![dir-5](/images/z-image-turbo/dir-5.png)
+![directory-5](/images/z-image-turbo/directory-5.png)
 
 
 
