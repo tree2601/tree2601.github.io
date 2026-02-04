@@ -1,7 +1,7 @@
 ---
 date: '2026-02-04T22:13:42+08:00'
 draft: false
-title: 'Z Image Turbo'
+title: 'Z Image Turbo 使用流程'
 categories: ["人工智能"]
 tags: ["Comfyui","Multimodal","Python","Workflow","Z-image-turbo"]
 ---

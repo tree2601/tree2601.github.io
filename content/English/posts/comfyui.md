@@ -1,7 +1,7 @@
 ---
 date: '2026-01-14T11:11:51+08:00'
 draft: false
-title: 'ComfyUI Usage Workflow'
+title: 'ComfyUI Guide'
 categories: ["AI"]
 tags: ["ComfyUI", "Multimodal", "Python", "Workflow", "Flux"]
 ---
