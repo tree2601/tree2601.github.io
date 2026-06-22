@@ -1,3 +1,5 @@
 public
 resources
 .hugo_build.lock
+.env
+call-llm-template-4.ipynb
